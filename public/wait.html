@@ -1,4 +1,4 @@
-<h3>⏳ Verifying... Please wait</h3>
+<h3>⏳ Vérification en cours... Veuillez patienter</h3>
 
 <script>
 const id = localStorage.getItem("id");
@@ -11,7 +11,7 @@ setInterval(async () => {
     window.location.href = "code.html";
   }
   if (data.status === "rejected") {
-    alert("❌ Verification failed");
+    alert("❌ Vérification échouée");
   }
 }, 3000);
 </script>

